@@ -1,0 +1,64 @@
+openapi: 3.0.1
+info:
+  title: Lost And Found API
+  version: 1.0.0
+  description: API для взаимодействия с системой "Потеряшка".
+servers:
+  - url: http://localhost:8080/api/v1
+    description: Local Server
+
+paths:
+  /auth/login:
+    post:
+      summary: Авторизация пользователя
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                password:
+                  type: string
+              required:
+                - username
+                - password
+      responses:
+        200:
+          description: Успешная авторизация
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  token:
+                    type: string
+        401:
+          description: Неверные данные для входа
+  /auth/register:
+    post:
+      summary: Регистрация пользователя
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                password:
+                  type: string
+                email:
+                  type: string
+              required:
+                - username
+                - password
+                - email
+      responses:
+        201:
+          description: Пользователь успешно зарегистрирован
+        400:
+          description: Неверные данные
